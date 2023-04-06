@@ -51,8 +51,16 @@ typedef struct s_icmp_header {
 
 typedef struct s_all {
     t_ipv4_header   ip;
-    t_icmp_header   icmp;
+    t_icmp_header   icmp_send;
+    t_icmp_header   icmp_receive;
     char            *hostname;
+    char            *addr;
+    int             packet_sent;
+    int             packet_receive;
+    double          min;
+    double          max;
+    double          avg;
+    double          data[100000];
 }           t_all;
 
 extern t_all    g_all;
