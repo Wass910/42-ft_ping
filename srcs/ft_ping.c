@@ -118,6 +118,18 @@ void    send_ping(int sockfd)
     return ;
 }
 
+int		ft_isdigit(char *str)
+{
+    int i = 0;
+    while (str[i])
+    {
+        if (str[i] < '0' || str[i] > '9')
+            return (1);
+        i++;
+    }
+	return (0);
+}
+
 int main(int argc, char **argv) 
 {
     if (getuid() != 0) {
@@ -144,10 +156,15 @@ int main(int argc, char **argv)
         int i = 0;
         if (ft_strncmp(delete_space(argv[1]), "-c", ft_strlen(argv[1])) == 0){
             g_all.c_flag = ft_atoi(argv[2]);
+            if (ft_isdigit(argv[2]) == 1)
+                g_all.c_flag = -1;
             i = 1;
         }
-        else if (ft_strncmp(delete_space(argv[2]), "-c", ft_strlen(argv[2])) == 0)
+        else if (ft_strncmp(delete_space(argv[2]), "-c", ft_strlen(argv[2])) == 0){
             g_all.c_flag = ft_atoi(argv[3]);
+            if (ft_isdigit(argv[3]) == 1)
+                g_all.c_flag = -1;
+        }
         else
             exit(1);
         if (g_all.c_flag < 1){
