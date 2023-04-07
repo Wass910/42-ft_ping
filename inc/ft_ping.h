@@ -62,14 +62,16 @@ typedef struct s_all {
     double          max;
     double          avg;
     double          data[100000];
+    long int        c_flag;
 }               t_all;
 
-char    *delete_space(char *chaine);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_strlen(char *s);
-double  my_pow(double base, double exponent);
-double  my_sqrt(double x);
-float   calc_stddev() ;
+char        *delete_space(char *chaine);
+int		    ft_strncmp(const char *s1, const char *s2, size_t n);
+int		    ft_strlen(char *s);
+double      my_pow(double base, double exponent);
+double      my_sqrt(double x);
+float       calc_stddev();
+long int	ft_atoi(char *nptr);
 
 extern t_all    g_all;
 
