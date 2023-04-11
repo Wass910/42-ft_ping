@@ -144,37 +144,13 @@ int main(int argc, char **argv)
     {
         if (ft_strncmp(delete_space(argv[1]), "-h", ft_strlen(argv[1])) == 0 || ft_strncmp(delete_space(argv[2]), "-h", ft_strlen(argv[2])) == 0)
             ping_help();
-        else if (ft_strncmp(delete_space(argv[1]), "-c", ft_strlen(argv[1])) == 0 || ft_strncmp(delete_space(argv[2]), "-c", ft_strlen(argv[2])) == 0){
+        else if (ft_strncmp(delete_space(argv[1]), "-v", ft_strlen(argv[1])) == 0 || ft_strncmp(delete_space(argv[2]), "-v", ft_strlen(argv[2])) == 0);
+        else
+            exit(1);
+    }
+    if (argc == 2)
+        if (ft_strncmp(delete_space(argv[1]), "-h", ft_strlen(argv[1])) == 0)
             ping_help();
-            exit(1);
-        }
-        else
-            exit(1);
-    }
-    else if (argc == 4)
-    {
-        int i = 0;
-        if (ft_strncmp(delete_space(argv[1]), "-c", ft_strlen(argv[1])) == 0){
-            g_all.c_flag = ft_atoi(argv[2]);
-            if (ft_isdigit(argv[2]) == 1)
-                g_all.c_flag = -1;
-            i = 1;
-        }
-        else if (ft_strncmp(delete_space(argv[2]), "-c", ft_strlen(argv[2])) == 0){
-            g_all.c_flag = ft_atoi(argv[3]);
-            if (ft_isdigit(argv[3]) == 1)
-                g_all.c_flag = -1;
-        }
-        else
-            exit(1);
-        if (g_all.c_flag < 1){
-            if (i == 1)
-                printf("ping: invalid count of packets to transmit: '%s'\n", argv[2]);
-            else
-                printf("ping: invalid count of packets to transmit: '%s'\n", argv[3]);
-            exit(1);
-        }
-    }
     g_all.addr = argv[1];
     g_all.hostname = get_the_adresse(argv[1]);
     int sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
@@ -188,10 +164,10 @@ int main(int argc, char **argv)
 
     // Remplissage du header ICMP
     g_all.icmp_send.type = ICMP_ECHO;
-    //g_all.icmp_send.code = 0;
-    //g_all.icmp_send.checksum = 0;
+    g_all.icmp_send.code = 0;
+    g_all.icmp_send.checksum = 0;
     g_all.icmp_send.un.echo.id = htons(getpid());
-    //g_all.icmp_send.un.echo.sequence = 0;
+    g_all.icmp_send.un.echo.sequence = 0;
     g_all.icmp_send.checksum = checksum((unsigned short*)&g_all.icmp_send, ICMP_HDR_SIZE);
     
     send_ping(sockfd);
